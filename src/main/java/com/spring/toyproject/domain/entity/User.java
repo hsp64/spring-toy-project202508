@@ -12,13 +12,11 @@ import java.time.LocalDateTime;
     - 인증 시스템의 핵심 엔터티로 기본 사용자 정보관리
  */
 @Entity
-@Table(name = "tbl_users")
+@Table(name = "tbl_user")
 @Getter
-@ToString // 디버그용
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +29,7 @@ public class User {
     @Column(name = "user_email", unique = true, nullable = false, length = 100)
     private String email;
 
-    // 패스워드는 사용자가 지정한 길이가 8~20자여도 결국 DB에는 암호화되어서 해시로 들어간다.
+    // 패스워드는 사용자가 지정한 길이가 8~20자여도 결국 DB에는 암호화되어서 해시로들어간다.
     @Column(name = "password", nullable = false, length = 255)
     private String password;
 
@@ -44,13 +42,12 @@ public class User {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-    // Allagrs대신에 따로 생성자를 하나 만듬 id, 생성시간 등 수정불가
+    // AllArgs대신에 따로 생성자를 하나 만듦
     @Builder
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
     }
-
 
 }
