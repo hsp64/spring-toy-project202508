@@ -7,6 +7,10 @@ const LoginPage = () => {
         console.log('로그인 JS가 로딩되었습니다.');
     };
 
+    // public 함수
+    return {
+        init
+    };
 };
 
 export default LoginPage;

@@ -7,6 +7,9 @@ const SignupPage = () => {
         console.log('회원가입 JS가 로딩되었습니다.');
     };
 
+    return {
+        init
+    };
 };
 
 export default SignupPage;

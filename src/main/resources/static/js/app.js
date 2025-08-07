@@ -20,8 +20,20 @@ const App = () => {
     // console.log(`currentPage: ${currentPage}`);
 
     const init = async () => {
-        const module = await import(`./pages/${currentPage}.js`);
-        console.log(module);
+        try {
+            const module = await import(`./pages/${currentPage}.js`);
+            // console.log(module);
+
+            if (module) {
+                // default() 함수는 export default 내보낸 함수의 리턴값을 가져온다.
+                const component = module.default();
+                // console.log(component);
+                component.init(); // 서브 모듈 실행
+            }
+
+        } catch(error) {
+            console.error(`페이지 모듈 ${currentPage} 로드 실패!`, error);
+        }
     };
 
     init();
@@ -31,5 +43,5 @@ const App = () => {
 // 기본 JavaScript 파일
 document.addEventListener('DOMContentLoaded', () => {
     App();
-    console.log('여행 기록 관리 시스템이 로드되었습니다.');
+    // console.log('여행 기록 관리 시스템이 로드되었습니다.');
 });
