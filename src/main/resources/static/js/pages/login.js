@@ -24,10 +24,7 @@ const LoginPage = () => {
             // 전달받은 토큰을 브라우저 스토리지에 안전하게 저장
             // localStorage    : 자동 로그인 1일 구현
             // sessionStorage  : 브라우저를 닫을때까지 로그인 유지
-            localStorage.setItem('token', response.data.token);
-            localStorage.setItem('user', JSON.stringify(response.data.user));
-
-
+            authService.login(response.data.token, JSON.stringify(response.data.user));
 
             utils.showMessage(response.message, 'success');
             utils.redirectTo('/', 1000);
