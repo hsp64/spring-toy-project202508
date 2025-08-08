@@ -82,6 +82,31 @@ const SignupPage = () => {
     };
 
 
+    // 사용자명 중복확인 함수
+    const checkDuplicateUsername = async (username) => {
+
+        try {
+            const response = await apiService.get(`/api/auth/check-username?username=${username}`);
+
+            // UI에 피드백 표시
+            if (response.data) { // 중복임
+                updateInputState(
+                    state.$usernameInput
+                    , false
+                    , response.message
+                );
+            } else { // 사용가능
+                updateInputState(
+                    state.$usernameInput
+                    , true
+                    , response.message
+                );
+            }
+
+        } catch (error) {
+            console.error(error.message);
+        }
+    };
 
 
     // 사용자명 입력 이벤트처리
@@ -94,9 +119,11 @@ const SignupPage = () => {
             updateInputState(
                 state.$usernameInput,
                 false,
-                '사용자명은 3~15자 사이여야 합니다.');
+                '사용자명은 3~15자 사이여야 합니다.'
+            );
             return;
         }
+
         // 중복 확인
         checkDuplicateUsername(username);
 

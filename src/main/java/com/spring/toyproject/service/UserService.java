@@ -100,4 +100,11 @@ public class UserService {
         return AuthResponse.of(token, UserResponse.from(user));
     }
 
+    public boolean checkDuplicateUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    public boolean checkDuplicateEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
 }
