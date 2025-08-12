@@ -1,6 +1,5 @@
 package com.spring.toyproject.domain.dto.request;
 
-
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +9,6 @@ import lombok.NoArgsConstructor;
 /**
  * 클라이언트가 보낸 로그인 정보를 담는 DTO
  */
-
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor

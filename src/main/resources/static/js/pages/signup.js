@@ -1,11 +1,12 @@
-import {apiService} from '../utils/api.js';
-import {utils} from '../utils/util.js';
+
+import { apiService } from '../utils/api.js';
+import { utils } from '../utils/util.js';
 
 
 // 회원가입 관련 함수들의 모음
 const SignupPage = () => {
 
-    const {debounce} = utils;
+    const { debounce } = utils;
 
     // 상태 관리 객체
     const state = {
@@ -177,37 +178,8 @@ const SignupPage = () => {
     }, 500);
 
 
-    // 폼 제출 이벤트
-    const handleSubmit = async (e) => {
-        e.preventDefault();
 
-        // 마지막으로 폼 전체 검사
-        if (!utils.validateForm(state.$form)) {
-            alert("입력값 필드가 올바르지 않습니다.");
-            return;
-        }
 
-        const payload = {
-            username: state.$usernameInput.value,
-            password: state.$passwordInput.value,
-            email: state.$emailInput.value
-        };
-
-        try {
-            const response = await apiService.post('/api/auth/signup', payload);
-            // console.log(response);
-
-            if (response.success) {
-                // 성공 메시지 보여줌
-                utils.showMessage(response.message, 'success');
-                // 2초뒤 로그인 페이지로 자동 이동
-                utils.redirectTo('/login', 2000);
-            }
-        } catch (e) {
-            // 실패 메시지 렌더링
-            utils.showMessage(e.message, 'error');
-        }
-    };
 
     // 패스워드 검증 이벤트 함수
     const handlePasswordInput = debounce(e => {
@@ -246,16 +218,16 @@ const SignupPage = () => {
 
         updateInputState(state.$passwordInput, isValid, strengthMessage);
 
-        // 비밀번호확인란을 작성한 이후에 다시 비밀번호란을 변경한 경우
-        // 비밀번호확인란을 다시검사해야함.
+        // 비밀번호 확인란을 작성한 이후에 다시 비밀번호란을 변경한 경우
+        // 비밀번호 확인란을 다시 검사해야함.
         const confirmPassword = state.$confirmPasswordInput.value;
         if (confirmPassword) {
-            handleConfirmPasswordInput({target: state.$confirmPasswordInput})
+            handleConfirmPasswordInput({ target: state.$confirmPasswordInput })
         }
 
     }, 500);
 
-// 패스워드 확인란 검증 이벤트 함수
+    // 패스워드 확인란 검증 이벤트 함수
     const handleConfirmPasswordInput = debounce(e => {
 
         const confirmPassword = e.target.value;
@@ -276,6 +248,38 @@ const SignupPage = () => {
         }
 
     }, 500);
+
+    // 폼 제출 이벤트
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        // 마지막으로 폼 전체 검사
+        if (!utils.validateForm(state.$form)) {
+            alert("입력값 필드가 올바르지 않습니다.");
+            return;
+        }
+
+        const payload = {
+            username: state.$usernameInput.value,
+            password: state.$passwordInput.value,
+            email: state.$emailInput.value
+        };
+
+        try {
+            const response = await apiService.post('/api/auth/signup', payload);
+            // console.log(response);
+
+            if (response.success) {
+                // 성공 메시지 보여줌
+                utils.showMessage(response.message, 'success');
+                // 2초뒤 로그인 페이지로 자동 이동
+                utils.redirectTo('/login', 2000);
+            }
+        } catch (e) {
+            // 실패 메시지 렌더링
+            utils.showMessage(e.message, 'error');
+        }
+    };
 
     // 이벤트 걸기
     const bindEvents = () => {

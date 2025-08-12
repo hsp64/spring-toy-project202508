@@ -9,7 +9,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
 /**
- * Spring security 설정 클래스
+ * Spring Security 설정 클래스
  * 인증 설정 및 기본 보안 규칙 설정
  */
 @Configuration
@@ -26,12 +26,13 @@ public class SecurityConfig {
                 // CORS 설정 off - 우리가 따로 나중에 수동설정
                 .cors(cors -> cors.configure(http))
                 // 세션 관리 설정을 JWT에 맞게 함
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                // 로그인 기본 폼 제거
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                //  로그인 기본 폼 제거
                 .formLogin(AbstractHttpConfigurer::disable)
                 // 기본 인증 비활성화
                 .httpBasic(AbstractHttpConfigurer::disable)
-                ;
+        ;
 
         return http.build();
     }

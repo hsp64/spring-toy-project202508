@@ -21,5 +21,4 @@ public class JwtSecretKeyGen {
         System.out.println("JWT Secret Key: " + secretKey);
     }
 
-
 }

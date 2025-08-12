@@ -6,7 +6,7 @@ spring:
     password: mariadb
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: true
