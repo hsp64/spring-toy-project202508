@@ -8,9 +8,6 @@ import lombok.Getter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.time.LocalDate;
-import java.util.List;
-
 /**
  * QueryDSL과 Native Query등을 사용하는 메서드를 명세하는 인터페이스
  */
@@ -32,12 +29,10 @@ public interface TripRepositoryCustom {
 
         // 정렬 조건
         @Builder.Default
-        private String sortBy = "createdAt"; // createdAt, startDate, endDate, budget, title
+        private String sortBy = "createdAt"; // createdAt, startDate, endDate, destination, title
 
         // 내림차 오름차 여부
         @Builder.Default
         private String sortDirection = "DESC"; // ASC, DESC
     }
-
-
 }
