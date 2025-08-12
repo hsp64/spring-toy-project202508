@@ -12,6 +12,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,8 +24,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
-@DataJpaTest
-@ActiveProfiles("test")
+@SpringBootTest
 @Transactional
 class TripRepositoryTest {
 
@@ -100,19 +100,19 @@ class TripRepositoryTest {
         // 검색 조건
         TripRepositoryCustom.TripSearchCondition condition
                 = TripRepositoryCustom.TripSearchCondition.builder()
-                .sortBy("createdAt")
+                .sortBy("endDate")
                 .sortDirection("DESC")
                 .build();
 
         //when
-        Page<Trip> tripPage = tripRepository.findTripsByUser(testUser, condition, pageable);
+        Page<Trip> tripPage = tripRepository.getTripList(testUser, condition, pageable);
         // 실제 데이터 꺼내기
         List<Trip> tripList = tripPage.getContent();
         //then
         tripList.forEach(System.out::println);
 
         // 지금 조회된 여행의 개수는 2개일 것으로 단언
-        assertThat(tripList).hasSize(1);
+        assertThat(tripList).hasSize(2);
 
         // 총 여행 수는 3개일 것으로 단언
         assertThat(tripPage.getTotalElements()).isEqualTo(3);

@@ -3,12 +3,9 @@ package com.spring.toyproject.repository.impl;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.spring.toyproject.domain.entity.QTrip;
-import com.spring.toyproject.domain.entity.QUser;
 import com.spring.toyproject.domain.entity.Trip;
 import com.spring.toyproject.domain.entity.User;
 import com.spring.toyproject.repository.custom.TripRepositoryCustom;
-import com.spring.toyproject.repository.custom.TripSearchCondition;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -18,7 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.spring.toyproject.domain.entity.QTrip.*;
+import static com.spring.toyproject.domain.entity.QTrip.trip;
 
 /**
  * TripRepositoryCustom의 구현체
@@ -32,8 +29,9 @@ public class TripRepositoryImpl implements TripRepositoryCustom {
     private final JPAQueryFactory factory;
 
     @Override
-    public Page<Trip> findTripsByUser(User user, TripSearchCondition condition, Pageable pageable) {
+    public Page<Trip> getTripList(User user, TripSearchCondition condition, Pageable pageable) {
 
+        log.info("\n\nfindTripsByUser call by QueryDSL");
         /*
             SELECT *
             FROM trips
