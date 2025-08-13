@@ -1,7 +1,7 @@
 
 spring:
   datasource:
-    url: jdbc:mariadb://localhost:3306/toy_project
+    url: jdbc:mariadb://localhost:3306/toy_project_clone
     username: root
     password: mariadb
   jpa:

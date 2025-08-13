@@ -7,12 +7,15 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * JWT 인증 필터
@@ -36,12 +39,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 // 토큰에서 사용자명을 추출
                 String username = jwtProvider.getUsernameFromToken(token);
 
-                // 시큐리에게 알려줄 인증정보(사용자명, 권한) 생성
+                // 시큐리티에게 알려줄 인증정보(사용자명, 권한) 생성
                 UsernamePasswordAuthenticationToken auth
                         = new UsernamePasswordAuthenticationToken(
                         username   // Principal: 컨트롤러가 사용할 인증된 유저의 식별자
                         , null // 비밀번호 저장: 일반적으로 저장 안함
-//                        , List.of(new SimpleGrantedAuthority("ADMIN"))
+                        , new ArrayList<>()
                 );
 
 

@@ -39,8 +39,6 @@ public class SecurityConfig {
                 // 기본 인증 비활성화
                 .httpBasic(AbstractHttpConfigurer::disable)
 
-                // 커스텀 필터 설정
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
 
                 // 인가 설정
                 .authorizeHttpRequests(
@@ -50,17 +48,24 @@ public class SecurityConfig {
                                         "/"
                                         , "/login"
                                         , "/signup"
+                                        , "/trips/**"
+                                        , "/dashboard"
                                 ).permitAll()
-                                .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
+                                .requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
                                 .requestMatchers("/api/auth/**").permitAll()
 
                                 // 인증 및 권한이 필요한 경로
+//                                .requestMatchers("/api/premium/**").hasAnyAuthority("VIP", "GOLD")
                                 .requestMatchers("/api/**").authenticated()
 
                                 // 기타 경로
                                 // 모든 다른 요청은 인증이 필요하다
                                 .anyRequest().authenticated()
                 )
+
+
+                // 커스텀 필터 설정
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
         ;
 
         return http.build();
